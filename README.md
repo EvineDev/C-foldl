@@ -17,7 +17,7 @@ Developed with/for these Compilers.
 - Handles 0 arguments by expanding into nothing.
 - Handles 1 argument by expanding to that argument.
 - Handles 2 arguments by expanding into to a ordinary call.
-- More than 2 arguments and it will expanding recursively.
+- More than 2 arguments and it will expand recursively.
 - Preprocessor macro is expanded properly with the inner calls first.
   And will work just fine as long as there is no exposed commas.
   Commas inside brackets are fine.

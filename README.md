@@ -4,7 +4,7 @@
 I saw a possibility to make a `CONCAT(...)` macro that just worked with any amount of arguments. Down that path I found it could do so much more, and now it's a general purpose system for creating vararg functions/macros in C/C++.
 
 ####Compilers Compatibility 
-Developed with/for these Compilers.
+Developed and tested on these compilers.
 - Clang 3.8.0
 - MSVC 19.00.23026
 - GCC 5.3.1

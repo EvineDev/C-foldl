@@ -56,7 +56,7 @@ int main()
     Generate_NUM_ARG(73);
     
     printf("\n/* FOLD Macros */\n");
-    printf("#define FOLD_VERSION \"1.0\"\n");
+    printf("#define FOLD_VERSION 1\n");
     Generate_FOLD(32, 51);
     
     return 0;

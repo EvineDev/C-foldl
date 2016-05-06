@@ -36,9 +36,9 @@ int Func_(int a, float b);
 #define Func(...) FOLD(Func_, __VA_ARGS__)
 //Macro             Expansion
 Func(a)          // a
-Func(a, b)       // Func(a, b)
-Func(a, b, c)    // Func(Func(a, b), c)
-Func(a, b, c, d) // Func(Func(Func(a, b), c), d)
+Func(a, b)       // Func_(a, b)
+Func(a, b, c)    // Func_(Func_(a, b), c)
+Func(a, b, c, d) // Func_(Func_(Func_(a, b), c), d)
 ```
 ```C
 // With preprocessor macro

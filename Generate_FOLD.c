@@ -27,6 +27,57 @@ void Generate_FOLD(int RecursionCount, int SafetyBuffer)
     }
 }
 
+void Generate_FOLDR(int RecursionCount, int SafetyBuffer)
+{
+    assert(RecursionCount >= 2);
+    assert(SafetyBuffer >= RecursionCount);
+    
+    printf("#define BEGIN_ARG_1(...)\n");
+    printf("#define LAST_ARG_1(...)\n");
+    for(int i = 2; i <= RecursionCount + 1; ++i)
+    {
+        printf("#define BEGIN_ARG_%i(",i);
+        for(int j = 1; j < i - 1; ++j)
+        {
+            printf("a%i,",j);
+        }
+        printf("...) ");
+        for(int j = 1; j < i - 1; ++j)
+        {
+            printf("a%i",j);
+            if(!(j < i - 2)) break;
+            printf(",");
+        }
+        printf("\n");
+        printf("#define LAST_ARG_%i(",i);
+        for(int j = 1; j < i - 1; ++j)
+        {
+            printf("a%i,",j);
+        }
+        printf("...) __VA_ARGS__\n");
+    }
+    
+    printf("#define FOLDR(...) FOLDR_(NUM_ARGS(__VA_ARGS__), FIRST_ARG(__VA_ARGS__), REST_ARG(__VA_ARGS__))\n");
+    printf("#define FOLDR_(N, F, ...) FOLDR__(N, F, __VA_ARGS__)\n");
+    printf("#define FOLDR__(N, F, ...) FOLDR_##N(F, LAST_ARG_##N(__VA_ARGS__), BEGIN_ARG_##N(__VA_ARGS__))\n");
+    
+    printf("#define FOLDR_1(F, ...)\n");
+    printf("#define FOLDR_2(F, ...) EXPAND(FIRST_ARG(__VA_ARGS__))\n");
+    printf("#define FOLDR_3_(F, R) EXPAND(F R)\n");
+    printf("#define FOLDR_3(F, R, L) FOLDR_3_(F, (L, R))\n");
+    
+    for(int i = 4; i <= RecursionCount + 1; ++i)
+    {
+        printf("#define FOLDR_%i_(F, R, ...) FOLDR_%i(F, F R, __VA_ARGS__)\n",i,i-1);
+        printf("#define FOLDR_%i(F, R, ...) FOLDR_%i_(F, (LAST_ARG_%i(__VA_ARGS__), R), BEGIN_ARG_%i(__VA_ARGS__))\n",i,i,i-1,i-1);
+    }
+    
+    for(int i = RecursionCount + 2; i <= SafetyBuffer + 1; ++i)
+    {
+        printf("#define FOLDR_%i(...) -----\"Over Max (%i) arguments to FOLDR vararg passed (%i)\"-----\n",i,RecursionCount,i-1);
+    }
+}
+
 void Generate_NUM_ARG(int Count)
 {
     assert(Count > 0);
@@ -54,10 +105,15 @@ int main()
     printf("#define FIRST_ARG(a, ...) a\n");
     printf("#define REST_ARG(a, ...) __VA_ARGS__\n");
     Generate_NUM_ARG(73);
+    printf("\n");
     
-    printf("\n/* FOLD Macros */\n");
-    printf("#define FOLD_VERSION 1\n");
+    printf("/* FOLD Macros */\n");
+    printf("#define FOLD_VERSION 2\n");
     Generate_FOLD(32, 51);
+    printf("\n");
+    
+    printf("/* FOLDR Macros */\n");
+    Generate_FOLDR(32, 51);
     
     return 0;
 }

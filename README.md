@@ -7,6 +7,7 @@ I saw a possibility to make a `CONCAT(...)` macro that just worked with any amou
 Developed with/for these Compilers.
 - Clang 3.8.0
 - MSVC 19.00.23026
+- GCC 5.3.1
 
 ####Files
 - `FOLD.h` is the library.

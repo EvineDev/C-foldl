@@ -1,3 +1,4 @@
+// Public Domain 2016 Daniel Rasmussen
 /* General Utility Macros */
 #define EXPAND(a) a
 #define FIRST_ARG(a, ...) a

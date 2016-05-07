@@ -1,3 +1,4 @@
+// Public Domain 2016 Daniel Rasmussen
 #include <stdio.h>
 #include <assert.h>
 
@@ -100,6 +101,7 @@ void Generate_NUM_ARG(int Count)
 
 int main()
 {
+    printf("// Public Domain 2016 Daniel Rasmussen\n");
     printf("/* General Utility Macros */\n");
     printf("#define EXPAND(a) a\n");
     printf("#define FIRST_ARG(a, ...) a\n");

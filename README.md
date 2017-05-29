@@ -1,19 +1,19 @@
-#C-foldl
-##C Typesafe Varargs, in a sorta roundabout way.
-####Reasoning
+# C-foldl
+## C Typesafe Varargs, in a sorta roundabout way.
+#### Reasoning
 I saw a possibility to make a `CONCAT(...)` macro that just worked with any amount of arguments. Down that path I found it could do so much more, and now it's a general purpose system for creating vararg functions/macros in C/C++.
 
-####Compilers Compatibility 
+#### Compilers Compatibility 
 Developed and tested on these compilers.
 - Clang 3.8.0
 - MSVC 19.00.23026
 - GCC 5.3.1
 
-####Files
+#### Files
 - `FOLD.h` is the library.
 - `Generate_FOLD.c` will generate `FOLD.h`
 
-####Properties
+#### Properties
 - Return value must be the same as the first argument of the next function in the expansion.
 - Handles 0 arguments by expanding into nothing.
 - Handles 1 argument by expanding to that argument.
@@ -23,7 +23,7 @@ Developed and tested on these compilers.
   And will work just fine as long as there is no exposed commas.
   Commas inside brackets are fine.
 
-####Sample
+#### Sample
 ```C
 //Macro                   Expansion
 FOLD(Func, a)          // a
